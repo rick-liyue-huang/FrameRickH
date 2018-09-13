@@ -28,6 +28,38 @@
 	/*
 		2. jQeury and $ is the factory function.
 	*/
+
+	/*
+		3.jQuery constructure analyze, the whole thing like this,
+	*/
+
+	
+	(function(w, jQery){
+		console.log('here support the module');
+	}(window, function() {
+		return jQery;
+	}()))
+	
+	// I will use the following constructure, without module support.
+	(function(w) {
+		// jQery code
+		// export the factory function
+		function jQuery() {
+			return new jQery.fn.init(selector, context);
+		}
+		
+		// provide one simple written way for prototype
+		jQery.fn = jquery.prototype = {
+
+		};
+		
+		// init is jQuery real constructed function.
+		var init = jQuery.fn.init = function() {
+
+		}
+		// export to outside.
+		w.jQery = w.$ = jQery;
+	}(window));
 </script>
 
 
