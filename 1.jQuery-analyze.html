@@ -34,22 +34,25 @@
 	*/
 
 	
-	(function(w, jQery){
-		console.log('here support the module');
-	}(window, function() {
-		return jQery;
-	}()))
+	/*
+		(function(w, factory){
+			factory();
+			console.log('here support the module');
+		}(window, function() {
+			return jQery;
+		}()))
+	*/
 	
 	// I will use the following constructure, without module support.
 	(function(w) {
 		// jQery code
 		// export the factory function
 		function jQuery() {
-			return new jQery.fn.init(selector, context);
+			return new jQuery.fn.init();
 		}
 		
 		// provide one simple written way for prototype
-		jQery.fn = jquery.prototype = {
+		jQuery.fn = jQuery.prototype = {
 
 		};
 		
@@ -57,9 +60,29 @@
 		var init = jQuery.fn.init = function() {
 
 		}
+
+		// let jQuery prototype assign to init prototype, 
+		// replace constructed funtion prototype to jQuery factory function prototype, it does this to expand jQuery function.
+		init.prototype = jQuery.fn;
+
 		// export to outside.
-		w.jQery = w.$ = jQery;
+		w.jQuery = w.$ = jQuery;
 	}(window));
+
+	/*
+		jQuery plug-ins application:
+		add some methods on prototype
+	*/
+	
+	// expand jQuery function
+	/*jQuery.fn.alert = function(msg) {
+		alert(msg);
+	}
+
+	var $$ = $();
+	$$.alert('ok');*/
+	
+
 </script>
 
 
