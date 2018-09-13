@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<div class="a">1</div>
+	<div class="a">2</div>
+	<div class="a">3</div>
+	<div class="a">4</div>
+
+	<script type="text/javascript" src="jquery-2.2.0.js"></script>
+	<script type="text/javascript">
+		/*
+		// 1. the whole thing -- IIFE
+		(function(w) {
+			
+			// 2. factory function
+			function jQuery() {
+				return new jQuery.fn.init();
+			}
+
+			// 3. provide one simply way on factory function prototype
+			jQuery.fn = jQuery.prototype = {
+				constructor: jQuery
+			};
+
+			// 4. init is the constructed function defined in prototype.
+			var init = jQuery.fn.init = function() {
+
+				// this is the entrance function !!
+				
+
+			};
+
+			// 5. replace constructed function 'init' to jQuery factory function prototype. in order to realize the plug-ins. Thus jQuery.fn can expand the methods.
+			init.prototype = jQuery.fn;
+
+			// 6. expose the jquery factory function.
+			w.jQuery = w.$ = jQuery;
+		}(window));
+		
+		*/
+
+
+		// now I will test the entrance function arguments
+
+		/*
+
+		1.null undefined 0, NaN, ''
+		2.selector
+		3.html frame
+		4.array
+		5.pseudo array
+		6.object
+		7.other data type
+		*/
+
+		console.log($());
+		console.log($(null));
+		console.log($(undefined));
+		console.log($(0));
+		console.log($(NaN));
+		console.log($(''));
+
+		// upon all return jQuery.fn.init {}
+
+		console.log($('div')); // jQuery.fn.init(4) [div.a, div.a, div.a, div.a, prevObject: jQuery.fn.init(1), context: document, selector: "div"]
+		console.log($('.a')); // jQuery.fn.init(4) [div.a, div.a, div.a, div.a, prevObject: jQuery.fn.init(1), context: document, selector: ".a"]
+		
+		// if is selector, it will be pseudo array
+		console.log($('li')); // jQuery.fn.init [prevObject: jQuery.fn.init(1), context: document, selector: "li"]
+
+
+		console.log($('<span><a>ok</a></span><span><a>ok</a></span>')); //jQuery.fn.init(2) [span, span]
+
+		// if is html frame, it will be the same as selector
+
+		console.log($(['abc', 'cba'])); //jQuery.fn.init(2) ["abc", "cba"]
+
+		// the upon code will add the unit of array to the instance 分别添加到实例自身上，也有length
+		
+		var as = document.querySelectorAll('.a');
+		console.log(as);
+	 	
+	 	// for pseudo array, same as array.
+
+	 	console.log($(new Date()));
+	 	console.log($({val: 666}));
+	 	// jQuery.fn.init [{…}]0: {val: 666}length: 1__proto__: Object(0)
+
+	 	// for object, it also get the pseudo array.
+
+	 	console.log($(111));
+
+	 	// jQuery.fn.init [111]
+	 	console.log($('abc')); // 
+	 	// jQuery.fn.init [prevObject: jQuery.fn.init(1), context: document, selector: "abc"]
+
+	 	// if it is string, it maybe the selector or html frame.
+
+		console.log($(document.body));
+		// if it is dom, it will be add on instance.
+
+
+		/*
+
+			in one word:
+			1. null undefined, 0, NaN, '' will return null
+			2.string, need to confirm it is html or selector, if it is html frame, it will create DOM, otherwise it will create pseudo array on instance.
+			3.array and pseudo array, it will add the pseudo array on instance.
+			4.other data type, it add instance and create pseudo array.
+
+		*/
+
+		// I will do that like this process
+
+		function init(selector) {
+
+			// null undefined, 0, NaN, '' will return null object
+			if(!selector) {
+				return this;
+				// constructed function this points to instance
+			}
+			
+			// string, need to confirm it is html or selector, 
+			if (typeof selector == 'string') {
+			
+			// if it is html frame, it will create DOM,
+			 // html starts with "<" and end with ">" 
+				if () {
+					// needs to create by code
+					/*
+						1. create one tempt div,
+						2.set div innerHTML as html frame, so these html frame become div child element.
+						3.go through div child element and add to this, and need to remember add length property. by array call 'push' method.
+					*/
+				}
+			// otherwise it will create pseudo array on instance.
+				else {
+
+					/*
+						1.use querySelectorAll
+						2.go through the elements and add on instance, also need length properties.
+
+					*/
+				}
+			}
+			
+			// array and pseudo array, it will add the pseudo array on instance.
+
+			// how to confirm it is pseudo array
+			/*
+				1. remove the funtion, and window (iframe number is length property of window).
+				window has one 'window' property pointing itself. window.window == window
+				if(obj.window == obj) it is window.
+				2.pseudo array has the following characters: it is object and has 'length' property, it length == 0, it has no object, if its length != 0, it will has 'length-1' index property.
+			*/
+
+			// if it is array, add each item on the instance directly.
+			if () {
+
+				/*
+					add all items of pseudo array or array on instance
+					by using 'apply' 'push' method.
+
+				*/ 
+			}
+
+			// other data type, it add instance and create pseudo array.
+			else {}
+		}
+
+
+
+
+		
+
+
+	</script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
