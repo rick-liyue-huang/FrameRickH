@@ -60,6 +60,44 @@
 
 			return false;
 		}
+		
+		// confirm it is function
+		init.isFunction = function(fn) {
+			if (typeof fn === 'function') {
+				return true;
+			}
+			return false;
+		}
+		
+		// confirm it is window
+		init.isWindow = function(w) {
+			if (w.window === w) {
+				return true;
+			}
+			return false;
+		}
+
+
+		init.isLikeArray = function(arr) {
+			
+			// filter out the function and window and not object
+			if(init.isFunction(arr) || init.isWindow(arr) || typeof arr !== 'object') {
+				return false;
+			}
+			
+			// if it is array
+			if ( ({}).toString.call(arr) == '[object Array]' ) {
+				return true;
+			}
+
+			// if it is pseudo array
+			if (('length' in arr) && (arr.length === 0) || ( (arr.length - 1) in arr) ) {
+				return true;
+			}
+
+			return false;
+
+		}
 
 		function init(selector) {
 			
@@ -103,11 +141,19 @@
 					
 
 				}
+			
+			// confirm it is array or pseudo array
+			} else if (init.isLikeArray(selector)) {
 
-			} else if (true) {
+				[].push.apply(this, selector);
+				return this;
 
 			} else {
-
+				// other data types.
+				
+				this[0] = selector;
+				this.length = 1;
+				return this;
 			}
 
 
