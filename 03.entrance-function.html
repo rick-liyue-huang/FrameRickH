@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<a href="#">666</a>
+
+	<script type="text/javascript">
+		
+		/*
+
+		(function(w) {
+			
+			function jQuery() {
+				return new jQuery.fn.init();
+			}
+
+			jQuery.fn = jQuery.prototype = {};
+
+			var init = jQuery.fn.init = function() {};
+
+			init.prototype = jQuery.fn;
+
+			w.jQuery = w.$ = window;
+		}(window))
+		
+		*/
+		
+
+		// trim the string method
+		init.trim = function(str) {
+			// if it isnot string type
+			if(typeof str !== 'string') {
+				return str;
+			}
+			
+			// priorily consider the default method 
+			if(str.trim) {
+				return str.trim();
+			}
+			
+			// replace to null string
+			return str.replace(/^\s+|\s+$/g, '');
+		}
+		
+		// confirm it is html frame
+		init.isHTML = function(html) {
+			// if it is null type
+			if (!html) {
+				return false
+			}
+			
+			// if it is html
+			if (html.charAt(0) == '<' && html.charAt(html.length -1) == '>' && html.length >= 3) {
+				return true;
+			}
+
+			return false;
+		}
+
+		function init(selector) {
+			
+			// invoke trim method.
+			selector = init.trim(selector);
+			
+			// confirm it is null, NaN, 0, '', undefined
+			if(!selector) {
+				// return null object;
+				return this;
+			
+
+			//  confirm it is string type
+			} else if(typeof selector == 'string') {
+				
+				// confirm it is html frame
+				if(init.isHTML(selector)) {
+					/*
+						1. create tempt div
+						2. go through tempt div children
+						3. add this to this (instance)
+					*/
+					var tempDiv = document.createElement('div');
+					tempDiv.innerHTML = selector;
+					[].push.apply(this, tempDiv.childNodes);
+					return this;
+
+				} else {
+
+					try {
+
+						// this string is selector
+						var nodes = document.querySelectorAll(selector);
+						[].push.apply(this, nodes);
+						return this;
+					} catch (e) {
+						// if get nothing, will return null object.
+						this.length = 0;
+						return this;
+					}
+					
+
+				}
+
+			} else if (true) {
+
+			} else {
+
+			}
+
+
+
+
+
+		}
+		
+
+		// test html frame
+
+		/*var $span = new init('<span>abc</span><span>abc</span>');
+		console.log($span);
+
+		document.body.appendChild($span[0]);*/
+		
+
+		// test selector
+
+		/*var $a = new init('a');
+		console.log($a);*/
+
+
+
+
+
+
+
+	</script>
+</body>
+</html>
