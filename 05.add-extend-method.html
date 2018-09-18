@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		function jQuery() {
+
+		}
+		
+		// mixed-in inheritance
+		jQuery.extend = jQuery.prototype.extend = function(obj) {
+			for(var key in obj) {
+				this[key] = obj[key];
+			}
+		}
+
+		jQuery.extend({
+			isFunction: function(fn) {
+				return typeof fn === 'function';
+			}
+		});
+
+		jQuery.prototype.extend({
+			alert: function(msg) {
+				alert(msg);
+			}
+		});
+		
+		// static function
+		console.log(jQuery.isFunction([])); // false
+
+		// instance function
+		var $$ = new jQuery();
+		$$.alert('ok');
+
+		// 构造函数不能使用自己原型中的方法
+		// 实例不能使用构造函数原型中的静态方法
+
+		/*
+			静态成员构造函数的属性和方法通过构造函数访问，把工具方法作为静态成员。
+			实例成员实例的属性方法通过实例化对象访问，把跟对象相关的方法作为实例成员。
+		*/
+
+	</script>
+</body>
+</html>
