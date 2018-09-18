@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+	</ul>
+	<script type="text/javascript" src="jquery-2.2.0.js"></script>
+
+	<script type="text/javascript">
+		/*
+
+			1.jquery: version, means version number
+			2.selector: '', means stance is jquery type,
+			3.length: 0, means default instance length,
+			4.toArray: transfer instance to array,
+			5.get: get the indexed original dom element
+			6.each: go through jquery instance
+			7.map: go through instance, and transfer to callback , and collect the return value and get array.
+			8.slice:slice parts of instance and get the new jquery instance.
+			9. first: get the first jquery instance element
+			10.last:get the last element of jquery instance
+			11.eq: get the indexed jquery instance object
+			12.push: add new element on jquery instance
+			13. sort: sort the jquery instance
+			14.splice: add, remove or replace the jquery instance 
+
+
+			
+		*/
+
+		console.log($().version);
+		console.log($().selector);
+		console.log($().length);
+		console.log($('li').toArray());
+		console.log($('li').get(0)); // <li>1</li>
+
+		// 'get' if no arguments, means 'toArray'
+		console.log($('li').get());
+
+		console.log($('li').slice(0, 2)); // jQuery.fn.init(2) [li, li, prevObject: jQuery.fn.init(4), context: document]
+
+		// return the new jquery instance for chain-programming
+		console.log($('li').first()); // jQuery.fn.init [li, prevObject: jQuery.fn.init(4), context: document]
+		console.log($('li').last());
+		console.log($('li').eq(-2));
+		
+		var $$ = $();
+		console.log($$.push('ok'));
+		console.log($$); // jQuery.fn.init ["ok"]
+
+		var $lis = $('li');
+		$lis.sort(function(a, b) {
+			// from large to small
+			return a.innerHTML < b.innerHTML;
+		});
+		console.log($lis);
+		// add to page
+		$lis.appendTo(document.body);
+
+		$lis.splice(1, 1, document.body);
+
+		
+	</script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
