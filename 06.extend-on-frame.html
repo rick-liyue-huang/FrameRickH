@@ -232,7 +232,8 @@
 				// pseudo array or array
 				// array or isLikeArray
 				else if(jQuery.isLikeArray(selector)) {
-					[].push.apply(this.selector);
+					// through 'slice' method, change pseudo array to true array. for IE8
+					[].push.apply(this.[].slice.call(selector));
 					return this;
 
 				}
@@ -279,7 +280,15 @@
 		// test
 		console.log($._isFunction([]));
 		console.log($._isWindow(window));
-		
+
+		/*
+		change pseudo array to array
+		*/
+
+		// [].push.apply(o, [].slice.call(obj));
+		// 通过slice 方法将一个伪数组变为一个真数组
+
+
 
 	</script>
 </body>
