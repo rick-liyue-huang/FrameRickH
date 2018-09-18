@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		
+		/*
+			add init constructed function on frame.
+		*/ 
+
+		(function(w) {
+			
+			/*
+			**********************************
+			factory function
+			************************************
+			*/
+
+			function jQuery(selector) {
+				return new jQuery.fn.init(selector);
+			}
+			
+			/*
+			****************************
+			replace prototype of jquery
+			****************************8
+			*/
+
+			jQuery.fn = jQuery.prototype = {
+				constructor: jQuery
+			};
+
+			/*
+
+			*********************************************
+			 ADD static methods on init !!!!!
+			***********************************************
+			*/
+
+			/*
+				init.isString = function(str) {
+					if (typeof str === 'string') {
+						return true;
+					}
+					return false;
+				};
+			*/
+
+			init._isString = function(str) {
+				return typeof str == 'string';
+			};
+
+
+			init.trim = function(str) {
+
+				// if not string, return original one
+				if(!str) {
+					return str;
+				}
+				
+				// use the original function
+				if (str.trim) {
+					return str.trim();
+				}
+				
+				// self-defined method
+				return str.replace(/^\s+|\s+$/g, '');
+
+			};
+
+			// html fragment confirmation
+			/*
+				init.isHtml = function(html) {
+					if(!html) {
+						return false;
+					}
+
+					// < >
+					if(html.charAt(0) === '<' && html.charAt(html.length - 1) === '>' && html.length >= 3) {
+						return true;
+					}
+
+					return false;
+				};
+			*/
+
+			init._isHtml = function(html) {
+				return !!html && html.charAt(0) === '<' && html.charAt(html.length - 1) === '>' && html.length >= 3;
+			};
+			/*
+				init.isFunction(fn) {
+					if(typeof fn === 'function') {
+						return true;
+					}
+					return false;
+				}
+			*/
+			init._isFunction = function(fn) {
+				return typeof fn === 'function';
+			};
+
+			// window confirmation
+			
+			/*
+				init.isWindow = function(w) {
+
+					if (!w) {
+						return false;
+					}
+
+					if(w.window === w) {
+						return true;
+					}
+					return false;
+				}
+			*/
+			init._isWindow = function(w) {
+				return !!w && w.window === w;
+			};
+			
+			// confirm object
+			init.isObject = function(obj) {
+				
+				// avoid null is object to affect typeof
+				if(obj === null) {
+					return false;
+				}
+
+				if(typeof obj === 'object' || typeof obj === 'function') {
+					return true;
+				}
+				return false;
+			};
+			
+			// array confirmation
+			init.isLikeArray = function(arr) {
+				
+				// Function, Window, !Object
+				if( init._isFunction(arr) || init._isWindow(arr) || !init.isObject(arr) ) {
+					return false;
+				}
+
+				// confirm is true array 
+				if(({}).toString.call(arr) === '[object Array]') {
+					return true;
+				}
+
+				// or pseudo array
+				if ('length' in arr && (arr.length === 0 || arr.length - 1 in arr)) {
+					return true;
+				}
+
+				return false;
+			};
+
+			
+			/*
+				***********************************
+				the true constructor
+				**************************************
+			*/ 
+			var init = jQuery.fn.init = function(selector) {
+
+				// null undefined, '', 0, NaN
+				if(!selector) {
+					return this;
+				}
+
+				// string
+				if(init._isString(selector)) {
+
+					// trim the string firstly
+					selector = init.trim(selector);
+
+					// html or selector
+					if(init._isHtml(selector)) {
+						
+						// create tempt div to contain the pseudo array
+						var tempDiv = document.createElement('div');
+						tempDiv.innerHTML = selector;
+
+						[].push.apply(this, tempDiv.childNodes);
+						// also cannot write return this, by default new method.
+						return this;
+
+					} 
+
+					else {
+						
+						try{
+
+							var nodes = document.querySelectorAll(selector);
+							[].push.apply(this, nodes);
+							return this;
+						} 
+						catch(e) {
+							// if get error
+							this.length = 0;
+							return this;
+						}
+					}
+				}
+				// pseudo array or array
+				// array or isLikeArray
+				else if(init.isLikeArray(selector)) {
+					[].push.apply(this.selector);
+					return this;
+
+				}
+				// other type
+				else {
+
+					/*[].push.call(this, selector);
+					return this;*/
+					// or
+					this[0] = selector;
+					this.length = 1;
+					return this;
+				}
+				
+			};
+			
+			
+			
+			/*
+				******************************
+				replace init prototype to factory prototype, so that others can create instance by jQuery.
+				*************************************************
+
+			*/ 
+			init.prototype = jQuery.fn;
+			
+
+			/*
+			**************************
+			expose the factory to outside
+			**********************************8
+			*/
+			w.jQuery = w.$ = jQuery;
+
+		}(window))
+
+		// instance can get constructor and init.
+		console.log($().constructor);
+		console.log($().init);
+
+
+	</script>
+</body>
+</html>
