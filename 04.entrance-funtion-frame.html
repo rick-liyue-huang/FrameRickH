@@ -34,6 +34,76 @@
 				constructor: jQuery
 			};
 
+			
+			/*
+				***********************************
+				the true constructor
+				**************************************
+			*/ 
+			var init = jQuery.fn.init = function(selector) {
+
+				// null undefined, '', 0, NaN
+				if(!selector) {
+					return this;
+				}
+
+				// string
+				if(init._isString(selector)) {
+
+					// trim the string firstly
+					selector = init.trim(selector);
+
+					// html or selector
+					if(init._isHtml(selector)) {
+						
+						// create tempt div to contain the pseudo array
+						var tempDiv = document.createElement('div');
+						tempDiv.innerHTML = selector;
+
+						[].push.apply(this, tempDiv.childNodes);
+						// also cannot write return this, by default new method.
+						return this;
+
+					} 
+
+					else {
+						
+						try{
+
+							var nodes = document.querySelectorAll(selector);
+							[].push.apply(this, nodes);
+							return this;
+						} 
+						catch(e) {
+							// if get error
+							this.length = 0;
+							return this;
+						}
+					}
+				}
+				// pseudo array or array
+				// array or isLikeArray
+				else if(init.isLikeArray(selector)) {
+					[].push.apply(this.selector);
+					return this;
+
+				}
+				// other type
+				else {
+
+					/*[].push.call(this, selector);
+					return this;*/
+					// or
+					this[0] = selector;
+					this.length = 1;
+					return this;
+				}
+				
+			};
+
+
+
+				
 			/*
 
 			*********************************************
@@ -155,73 +225,6 @@
 				}
 
 				return false;
-			};
-
-			
-			/*
-				***********************************
-				the true constructor
-				**************************************
-			*/ 
-			var init = jQuery.fn.init = function(selector) {
-
-				// null undefined, '', 0, NaN
-				if(!selector) {
-					return this;
-				}
-
-				// string
-				if(init._isString(selector)) {
-
-					// trim the string firstly
-					selector = init.trim(selector);
-
-					// html or selector
-					if(init._isHtml(selector)) {
-						
-						// create tempt div to contain the pseudo array
-						var tempDiv = document.createElement('div');
-						tempDiv.innerHTML = selector;
-
-						[].push.apply(this, tempDiv.childNodes);
-						// also cannot write return this, by default new method.
-						return this;
-
-					} 
-
-					else {
-						
-						try{
-
-							var nodes = document.querySelectorAll(selector);
-							[].push.apply(this, nodes);
-							return this;
-						} 
-						catch(e) {
-							// if get error
-							this.length = 0;
-							return this;
-						}
-					}
-				}
-				// pseudo array or array
-				// array or isLikeArray
-				else if(init.isLikeArray(selector)) {
-					[].push.apply(this.selector);
-					return this;
-
-				}
-				// other type
-				else {
-
-					/*[].push.call(this, selector);
-					return this;*/
-					// or
-					this[0] = selector;
-					this.length = 1;
-					return this;
-				}
-				
 			};
 			
 			
