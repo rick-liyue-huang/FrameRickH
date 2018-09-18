@@ -6,6 +6,8 @@
 </head>
 <body>
 	
+	<span>666</span>
+
 	<script type="text/javascript">
 		
 		/*
@@ -178,6 +180,43 @@
 					}
 
 					return false;
+				},
+
+				ready: function(fn) {
+					
+					//  
+					/*
+						confirm DOMContentLoaded firstly,
+						through document.readyState === 'complete'
+						if true, fn can invoke 
+						if is false, will confirm 
+						suport addEventListener
+						if support, use DOMContentLoaded event
+
+						if no support, use attachEvent bind 'onreadystatechange'
+						note: need apply in 'document.readyState === 'complete' {}, 
+
+
+					*/
+					
+					// DOM analys finish
+					if(document.readyState === 'complete') {
+						fn();
+					}
+					// if DOM analyze no finish, will confirm addEventListener
+					else if(document.addEventListener) {
+							document.addEventListener('DOMContentLoaded', fn);
+					} else {
+
+						// ie8
+						document.attachEvent('onreadystatechange', function() {
+
+							// avoid invoke too many times.
+							if(document.readyState === 'complete') {
+								fn();
+							}
+						})
+					}
 				}
 
 			});
@@ -194,6 +233,12 @@
 				if(!selector) {
 					return this;
 				}
+				
+				// selector is function ---- page onload function
+				if(jQuery._isFunction(selector)) {
+					jQuery.ready(selector);
+				}
+
 
 				// string
 				if(jQuery._isString(selector)) {
@@ -233,7 +278,7 @@
 				// array or isLikeArray
 				else if(jQuery.isLikeArray(selector)) {
 					// through 'slice' method, change pseudo array to true array. for IE8
-					[].push.apply(this.[].slice.call(selector));
+					[].push.apply(this, [].slice.call(selector));
 					return this;
 
 				}
@@ -287,6 +332,38 @@
 
 		// [].push.apply(o, [].slice.call(obj));
 		// 通过slice 方法将一个伪数组变为一个真数组
+
+		
+		// 为了防止获取不到页面的元素，所以把函数传入到jQuery
+		// 这个回调函数会在DOM解析结束后调用
+		// $(function() {})
+
+
+		// html5 add new methods:
+		// DOMContentLoaded event will load after DOM analyze, normaly its quicker than onload.
+		
+		/*
+
+		document.addEventListener('DOMContentLoaded', function() {
+			var spans = document.querySelectorAll('span');
+			console.log(spans, 'DOMContentLoaded');
+		});
+*/
+		// ie8 has 'onreadystatechange' event
+		// use upon method to replace DOMContentLoaded
+/*
+		document.attachEvent('onreadystatechange', function() {
+			if(document.readyState === 'complete') {
+				var spans = document.querySelectorAll('span');
+				console.log(spans, 'DOMContentLoaded');
+			}
+		})
+*/
+
+console.log($(function() {
+	$('span');
+}));
+
 
 
 
