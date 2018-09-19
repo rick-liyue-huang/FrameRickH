@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		
+		/*
+
+			实例是通过构造函数创建的对象就是实例，实例和对象的关系：实例就是对象，对象表达的东西更加广阔。实例有一个创建的过程，更加具体，更加对象化，对象相对来说比较抽象，所表达的含义也更广阔一些。
+
+			实例就是通过构造函数创建的对象
+
+		*/ 
+
+		/*function Person(name) {
+			this.name = name;
+		}
+		
+		// new 出来的对象
+		var leo = new Person('loe');
+		console.log(leo);*/
+
+		/*
+
+			函数的称呼：函数是一等公民，最强大。
+			普通函数：
+			直接定义或者声明的函数,预解析
+
+		*/
+		// 定义
+		// var fn = function() {}
+		// 声明
+		// function fn() {}
+
+		/*
+			如果一个函数有了宿主，那么这个函数被称为宿主的方法
+		*/
+
+		/*var obj = {
+			fn: function(){}
+		}*/
+
+		/*
+			如果一个函数又有了一个新的称呼，就叫做构造函数
+
+			如果一个函数被作为参数传递给另外一个函数，那么这个被传递的函数就叫做回调函数。
+		*/
+
+		/*
+			静态方法和实例方法
+
+			实例方法：提供给实例使用的方法就是实例方法，也叫做实例成员和静态成员，提供给实例使用的方法和属性也叫做实例属性。
+			
+			静态方法：加给构造函数的方法，也就是函数的方法就是静态方法。提供给函数使用的方法就是静态方法。大部分情况下就是给构造函数添加方法就是静态方法。
+
+			静态成员也叫做类成员，es6中把类认为是构造函数。构造函数就是类。
+
+			
+
+
+		*/
+
+		/*function Person(name, age) {
+
+			// 这是实例成员，也为这是供实例使用的
+			this.name = name;
+			// 通过this添加的实例成员都是添加到实例自身上。
+		}*/
+		// 这是静态成员，添加给函数使用的，代表的含义更广
+		// Person.MAX_AGE = 300;
+
+		// Person.prototype = {
+		// 	constructor: Person,
+			
+			// 这是给原型中添加方法，也是实例方法
+			// 但是这里并没有添加到实例自身上，而是添加到原型上。
+			// run: function() {
+				/*if(this.name < 5) {
+					console.log('crawl');
+				} else {
+					console.log('walk');
+				}*/
+				// Person.run(this.age);
+			// }
+		// }
+
+		// 如果一些方法通用性很强了
+		// 就可以考虑把这些属性和方法作为静态方法使用
+		// Person.run = function(age) {
+		// 	if(name < 5) {
+		// 			console.log('crawl');
+		// 		} else {
+		// 			console.log('walk');
+		// 		}
+		// }
+
+		// 静态方法可以被复用，通常是在实例方法中复用静态方法。
+		// 实例方法复用静态方法，是因为静态方法服务范围更广，而实例方法只能服务于实例，静态方法既可以服务于静态也可以服务于实例的复用。
+
+
+		/*
+			es6:
+			类：在 es6之前没有类的概念，类是对某一些具有相同特征或者特性的对象的抽象描述
+
+			就有相同特征的某一类对象。
+		*/
+		
+		// 构造函数就是类
+		function Person(name, age, gender) {
+			this.name = name;
+			this.age = age;
+			this.gender = gender;
+		}
+
+		/*
+			实例不能使用静态方法，但是实例方法可以复用静态方法
+
+			实例方法可以复用静态方法。
+
+		*/
+
+		/*
+			原型链：记住对象搜索其原型。
+
+		*/
+
+		/*
+		    1.Object的实例 (new Object or {}) 2.所有函数默认的原型都继承(内置的构造函数默认的原型，or 自定义的构造函数的原型) or Math 继承-> Object.prototype -> null
+
+		*/
+
+		/*
+			显式原型和隐式原型
+			1.prototype 显式原型， 原型属性
+			2.__proto__ 隐式原型， 原型对象
+
+			原型链长度不定，但是一定是有限的，如果是无限的，就会容易造成无限循环。
+		*/
+
+		/*
+			
+
+		*/
+
+		function Person() {
+
+		}
+
+		Person.extend = Person.prototype.extend = function(obj) {
+			for (var key in obj) {
+				this[key] = obj[key];
+			}
+		}
+
+		/*
+			预期：谁调用extend就给谁混入内容
+			那么这就和this有关了，内部的实现就是用this
+
+		*/
+		// 给 Person的实例添加成员
+		Person.prototype.extend({
+
+		})
+
+		Person.extend({
+
+		})
+
+		/*
+			数组的方法调用
+			slice为什么单独处理，因为jQuery处理了，而且方便链式变成
+			slice返回值是一个数组，预期对这个数组进行进一步操作。这个数组又被包装为了实例对象
+			
+			push 没有做处理，因为返回值是一个新长度数值，jQuery觉得没有用,
+			sort 没有处理，谁调用返回谁，如果实例调用返回的还是实例。
+
+			splice 没有做处理，返回值是被删除掉的元素，因此不需要对删除的元素不用再包装。
+
+			最终就是 slice做了处理，其他的都没有处理。
+		*/
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
