@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<span>1</span>
+	<span>2</span>
+	<span>3</span>
+	<span>4</span>
+	<span>
+		<a href="">a</a>
+		<a href="">b</a>
+		<a href="">c</a>
+	</span>
+
+
+
+	<script type="text/javascript" src="jquery-2.2.0.js"></script>
+	<script type="text/javascript">
+		
+		/*
+			1.empty: clear all elements content
+			2.remove: remove all eleemnts
+			3.html: set all element content, or get the first element 
+			4. text: set all element text, or get all element text
+			5.appendTo: add all elements to the named element
+			6. append: add new content(element) on all elements
+			7.prependTo: add all elements to the front of named element
+			8.prepend: add new element on the front of all elements.
+		*/
+
+		// test by jquery
+		// $('span').empty();
+		// $('span').remove();
+		// console.log($('span').html());
+		// $('span').html('<li>li</li>');
+		// console.log($('span').text());
+		// $('span').text('<li>li</li>');
+
+
+
+		/*
+			empty method:
+			1. traverse likeArray
+			2.get all elements and clear their content. 
+
+		*/
+
+		function empty(likeArray) {
+			for(var i = 0, len = likeArray.length; i < len; i++) {
+				likeArray[i].innerHTML = '';
+			}
+		}
+
+		function _empty(likeArray) {
+			[].forEach.call(likeArray, function(val, key) {
+				val.innerHTML = '';
+			});
+		}
+
+		/*
+			remove method:
+			1. traverse the likeArray,
+			2. get all elements and get its parent element, and then remove itself.
+		*/
+
+		function remove(likeArray) {
+			
+			for(var i = 0, len = likeArray.length; i < len; i++) {
+				likeArray[i].parentNode.removeChild(likeArray[i]);
+			}
+		}
+
+		function _remove(likeArray) {
+
+			[].forEach.call(likeArray, function(val, key) {
+				val.parentNode.removeChild(val);
+			});
+		}
+
+		/*
+			html method
+			1. confirm whether has arguments or not,
+			2. if no arguments, get the first element, and return
+			3. if has arguments, traverse the likeArray, and get all elements and set the content (innerHTML).
+
+		*/
+
+		function html(likeArray, html) {
+			
+			// if only has likeArray, get first likearray element
+			if(arguments.length === 1) {
+				return likeArray[0].innerHTML;
+
+			} else if(arguments.length >= 2) {
+				for(var i = 0, len = likeArray.length; i < len; i++) {
+					likeArray[i].innerHTML = html;
+				}
+			}
+		}
+		
+		/*
+			text method:
+			1. confirm whether has arguments or not,
+			2. if no arguments, get the all element, and return the added content,
+			3. if has arguments, traverse the likeArray, and get all elements and set the content (innerText).
+		*/
+
+		function text(likeArray, text) {
+			
+			if(arguments.length === 1) {
+
+				var str = '';
+				for(var i = 0, len = likeArray.length; i < len; i++) {
+					str += likeArray[i].innerText;
+				}
+				return str;
+
+			} else if(arguments.length >= 2) {
+				for (var i = 0, len = likeArray.length; i < len; i++) {
+					likeArray[i].innerText = text;
+				}
+			}
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+		// test
+
+		var span = document.querySelectorAll('span');
+		// _remove(span);
+		// console.log(html(span));
+		// html(span, 'ok');
+		// console.log(text(span));
+		// text(span, 'good');
+		
+
+
+
+
+	</script>
+</body>
+</html>
