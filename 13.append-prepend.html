@@ -7,14 +7,17 @@
 <body>
 
 	<span>111</span>
-	<ul>
+	<!-- <ul>
 		<li>a</li>
 		<li>b</li>
 		<li>c</li>
 		<li>d</li>
 		<li>e</li>
-	</ul>
+	</ul> -->
+	<a href="">a</a>
+	<a href="">b</a>
 	<div></div>
+	<!-- <div></div> -->
 
 	<script type="text/javascript" src="jquery-2.2.0.js"></script>
 	<script type="text/javascript">
@@ -49,6 +52,25 @@
 				lis[i].appendChild(span.cloneNode(true));
 			}
 		}
+
+
+		/*
+			prepend
+			1.get all a and div
+			2.traverse all div elements, and then by 'insertBefore' to add new elements.
+			3. first time add original one
+			4. else add cloned one.
+
+		*/
+
+		var as = document.querySelectorAll('a');
+		var divs = document.querySelectorAll('div');
+
+		for (var i = 0, len = divs.length; i < len; i++) {
+			divs[i].insertBefore(a, divs[i].firstChild);
+		}
+		
+		
 
 
 
