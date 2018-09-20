@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<span>1</span>
+	<span>2</span>
+	<span>3</span>
+	<span>4</span>
+	<span>
+		<a href="">a</a>
+		<a href="">b</a>
+		<a href="">c</a>
+	</span>
+	
+	<script type="text/javascript" src="11.9-to-core.js"></script>
+	<script type="text/javascript">
+		
+		// add DOM method on prototype extend, so init instance(jQuery instance) can use them.
+		$.fn.extend({
+
+			/*
+			1.empty: clear all elements content
+			2.remove: remove all eleemnts
+			3.html: set all element content, or get the first element 
+			4. text: set all element text, or get all element text
+			5.appendTo: add all elements to the named element
+			6. append: add new content(element) on all elements
+			7.prependTo: add all elements to the front of named element
+			8.prepend: add new element on the front of all elements.
+			*/
+
+			// test by jquery
+			// $('span').empty();
+			// $('span').remove();
+			// console.log($('span').html());
+			// $('span').html('<li>li</li>');
+			// console.log($('span').text());
+			// $('span').text('<li>li</li>');
+
+
+
+			/*
+				empty method:
+				1. traverse likeArray
+				2.get all elements and clear their content. 
+
+			*/
+
+			empty: function() {
+				for(var i = 0, len = this.length; i < len; i++) {
+					this[i].innerHTML = '';
+				}
+				
+				// for chain programming
+				return this;
+			},
+
+			_empty: function() {
+				this.each(function() {
+					// here 'this' points to each traversed element
+					this.innerHTML = '';
+				});
+
+				return this;
+			},
+
+			/*
+				remove method:
+				1. traverse the likeArray,
+				2. get all elements and get its parent element, and then remove itself.
+			*/
+
+			remove: function() {
+				
+				for(var i = 0, len = this.length; i < len; i++) {
+					this[i].parentNode.removeChild(this[i]);
+				}
+
+				return this;
+			},
+
+			_remove: function() {
+
+				this.each(function() {
+					this.parentNode.removeChild(this);
+				});
+
+				return this;
+			},
+
+			/*
+				html method
+				1. confirm whether has arguments or not,
+				2. if no arguments, get the first element, and return
+				3. if has arguments, traverse the likeArray, and get all elements and set the content (innerHTML).
+
+			*/
+
+			html: function(html) {
+				
+				// if only has likeArray, get first likearray element
+				if(arguments.length === 0) {
+					return this[0].innerHTML;
+
+				} else if(arguments.length >= 1) {
+					for(var i = 0, len = this.length; i < len; i++) {
+						this[i].innerHTML = html;
+					}
+					// set operation can do chain programming
+					return this;
+				}
+			},
+
+			_html: function(html) {
+				
+				if (arguments.length === 0) {
+					return this.get(0).innerHTML;
+
+				} else {
+					
+					this.each(function() {
+						this.innerHTML = html;
+					});
+
+					return this;
+				}
+			},
+			
+			/*
+				text method:
+				1. confirm whether has arguments or not,
+				2. if no arguments, get the all element, and return the added content,
+				3. if has arguments, traverse the likeArray, and get all elements and set the content (innerText).
+			*/
+
+			text: function(text) {
+				
+				if(arguments.length === 0) {
+
+					var str = '';
+					for(var i = 0, len = this.length; i < len; i++) {
+						str += this[i].innerText;
+					}
+					return str;
+
+				} else {
+					for (var i = 0, len = this.length; i < len; i++) {
+						this[i].innerText = text;
+					}
+					// set operation can do chain programming.
+					return this;
+				}
+
+			},
+
+			_text: function(text) {
+
+				if(arguments.length === 0) {
+					var str = '';
+					this.each(function() {
+						str += this.innerText;
+					});
+					return str;
+
+				} else {
+
+					this.each(function() {
+						this.innerText = text;
+					});
+
+					return this;
+				}
+			}
+
+		});
+
+
+		/*
+			note:
+			text and html
+			if its 'get' operation, it will get the value,
+			if its 'set' opertion, it will get the instance, and can chain programming
+
+			empty and remove
+			only operate on itself, and can get itself, can do chain programming.
+
+
+		*/ 
+
+
+		// test
+
+		// $('span')._empty();
+		// $('span')._remove();
+		// console.log($('span').text('<li>li</li>'));
+		
+
+
+
+
+
+
+
+
+
+	</script>
+</body>
+</html>
