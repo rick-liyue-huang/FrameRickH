@@ -297,10 +297,86 @@
 					});
 				});
 				return jQuery(result);
+			},
+
+
+			/*
+				append() method
+
+				1. if arguments is 'string' type, will add the string in the innerHTML, append('a')
+				2. if arguments is jq instance, will add each instance add in teh innerHTML, append($('a'))
+				3. if arguments is DOM, will add each dom in the innerHTML. append(document.querySelectorAll('span'))
+
+				PROCESS:
+				firstly confirm its string or not its similar as appendTo()
+
+			*/
+
+			append: function(context) {
+				
+				if(jQuery._isString(context)) {
+					
+					for(var i = 0, len = this.length; i < len; i++) {
+						this[i].innerHTML += context;
+					}
+
+				} else {
+					// add each $context to each this
+					var $context = $(context);
+					$context.appendTo(this);
+				}
+				return this;
+			},
+
+
+			_append: function(context) {
+
+				if(jQuery._isString(context)) {
+
+					this.each(function() {
+						this.innerHTML += context;
+					});
+
+				} else {
+					var $context = $(context);
+					$context.appendTo(this);
+				}
+
+				return this;
+			},
+			
+			// similar as 'append'
+			prepend: function(context) {
+
+				if(jQuery._isString(context)) {
+
+					for(var i = 0, len = this.length; i < len; i++) {
+
+						this[i].innerHTML = context + this[i].innerHTML;
+					}
+
+				} else {
+					var $context = $(context);
+					$context.prependTo(this);
+				}
+
+				return this;
+			},
+
+			_prepend: function(context) {
+
+				if (jQuery._isString(context)) {
+					this.each(function() {
+						this.innerHTML = context + this.innerHTML;
+					});
+
+				} else {
+					var $context = $(context);
+					$context.prependTo(this);
+				}
+				return this;
+
 			}
-
-
-
 
 			
 		});
@@ -332,10 +408,13 @@
 		// $('a')._appendTo($('span')).html('good');// a is 'this' and its content become 'good';
 
 		// $('a')._prependTo('span');
-		$('a')._prependTo($('span')).html('good');
+		// $('a')._prependTo($('span')).html('good');
+		// $('span')._append($('a'));
+
+		// $('span')._prepend($('a'));
 
 
-
+		
 
 
 
