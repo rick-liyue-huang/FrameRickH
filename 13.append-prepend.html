@@ -27,11 +27,32 @@
 			2. DOM
 			3. jQuery object
 
+			process: firstly use jQuery to encapsulate the argument to get the jQuery instance, and then deal with it.
+
 			return 
 			new instance
 
+			here only the first one is original one,
+			the others are cloned ones.
+
 		*/
 
+		console.log($($('li')));
+
+		var lis = document.querySelectorAll('li');
+		var span = document.getElementsByTagName('span')[0];
+
+		for(var i = 0, len = lis.length; i < len; i++) {
+			if ( i === 0) {
+				lis[i].appendChild(span);
+			} else {
+				lis[i].appendChild(span.cloneNode(true));
+			}
+		}
+
+
+
+		
 
 
 
