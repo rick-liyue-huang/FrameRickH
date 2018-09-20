@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<a href="">a</a>
+	<a href="">b</a>
+	<div index='1'>
+		<span>span1</span>
+		<span>span2</span>
+	</div>
+
+	<div index='2'>
+		<span>span11</span>
+		<span>span22</span>
+	</div>
+	
+	
+	<script type="text/javascript" src="jquery-2.2.0.js"></script>
+	<script type="text/javascript">
+		
+
+		/*
+			1. addClass: add class to all elem
+			2. removeClass: remove class to all elem
+			3. hasClass: confirm whether one has class
+			4. toggleClass: !operation
+			5. attr: 'set' or 'get' elem attribute node
+			6. prop: 'set' or 'get' elem property value.
+			7. val: 'get' or 'set' 'value' property
+			8. css 'get' or 'set' css style
+
+			attribute node: all html tag has property node.
+
+			property only for DOM, attribute for all. by '[]' or '.'.
+
+			all DOM have attribute node.
+
+			attribute node in 'attribute' property.
+
+			through DOM 'attribute' property get attribute node
+			dom.getAttribute('attributename');
+			dom.setAttribute('attributevalue');
+
+		*/
+
+		console.log($('div').attr('index')); // get first one
+
+		$('div').attr('index', 6); // all set 6
+
+		$('div').attr({
+			a: 'aaa',
+			b: 'bbb',
+			c: 'ccc'
+		});
+
+		/*
+			1. if the first argument is not string, will directly return this.
+
+		*/ 
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+</body>
+</html>

@@ -178,14 +178,14 @@
 		***********************************************
 		*/
 
-		/*
-			isString : function(str) {
-				if (typeof str === 'string') {
-					return true;
-				}
-				return false;
-			},
-		*/
+
+		isString: function(str) {
+			if (typeof str === 'string') {
+				return true;
+			}
+			return false;
+		},
+
 
 		_isString: function(str) {
 			return typeof str == 'string';
