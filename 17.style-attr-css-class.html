@@ -344,27 +344,109 @@
 				1. add clas to all elems
 				2. if had, ignore it.
 				3. add different class by ' ' space
-
+				4. return this.
 			*/ 
 			addClass: function(className) {
 				
+				this.each(function() {
+					// confirm it has named className or not
+					if( !jQuery(this).hasClass(className) ) {
+						this.className += ' ' + className;
+					}
+				});
+
+				return this;
+			},
+
+			_addClass: function(classNames) {
 				
+				// support more than one classnames
+				// 1. 'split' the classnames to single classname
+				// 2. outer traverse the 'this' elems
+				// 3. inner traverse the classnames 
+				// 4. the rest is same as 'addClass()' method
+				
+				// transfer string to array
+				classNames = jQuery.trim(classNames).split(' ');
+				
+				// traverse all 'this' elems
+				this.each(function() {
+					
+					// here 'this' is original DOM elem, so need to encapsulte.
+					var $self = jQuery(this);
+					
+					// traverse classnames array
+					jQuery.each(classNames, function(k, val) {
+						
+						// if has the pointed classname, will addClass
+						if( !$self.hasClass(val) ) {
+							// $self[0] is the original DOM elem.
+							$self[0].className += ' ' + val;
+						};
+					});
+				});
+				return this;
 			},
 			
 			/*
 				if no arguments, remove all class
 				otherwise remove pointed class
 			*/
-			removeClass: function() {
+			removeClass: function(className) {
 
+				if( arguments.length === 0 ) {
+					this.each(function() {
+						this.className = '';
+					});
 
+				} else {
+
+					// ' a b c d ' => ' a b c '
+					this.each(function() {
+						this.className = (' ' + this.className + ' ').replace(' ' + className + ' ', ' ');
+					});
+				}
+
+				return this;
+			},
+
+			_removeClass: function(classNames) {
+
+				// support more than one classnames
+				// 1. if has not arguments, remove all classname on all 'this' elems,
+				// 2. if has arguments, remove the ' ' space on both ends, and 'split' the classnames to single classname
+				// 3. outer traverse the 'this' elems
+				// 4. inner traverse the classnames 
+				// 5. the rest is same as 'removeClass()' method
 			},
 			
 			/*
 				if has remove, otherwise add, use addClass and removeClass
 			*/
-			toggleClass: function() {
+			toggleClass: function(className) {
 
+				this.each(function() {
+					
+					var $this = jQuery(this);
+
+					if($this.hasClass(className)) {
+						$this.removeClass(className);
+					} else {
+						$this.addClass(className);
+					}
+
+				});
+				
+				return this;
+			},
+
+			_toggleClass: function(classNames) {
+				/*
+					1. if has arguments, remove the ' ' space on both end, and then 'split' the classnames
+					2. outer traverse 'this' elems
+					3. inner traverse classnames
+					4. the rest are same as 'toggleClass()' method
+				*/
 			}
 
 
@@ -388,8 +470,11 @@
 
 		// console.log($('span')._hasClass('a'));
 
+		// $('span').toggleClass('a');
+		// console.log($('span').removeClass('b'));
 
 
+		
 
 
 
