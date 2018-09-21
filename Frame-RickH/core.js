@@ -13,43 +13,43 @@
 	************************************
 	*/
 
-	function jQuery(selector) {
-		return new jQuery.fn.init(selector);
+	function RickH(selector) {
+		return new RickH.fn.init(selector);
 	}
 
 	/*
 	****************************
-	replace prototype of jquery
+	replace prototype of RickH
 	****************************8
 	*/
 
-	jQuery.fn = jQuery.prototype = {
+	RickH.fn = RickH.prototype = {
 
-		constructor: jQuery,
+		constructor: RickH,
 
 		/*
 		***********************************
-		1.jquery: version, means version number
-		2.selector: '', means stance is jquery type,
+		1.RickH: version, means version number
+		2.selector: '', means stance is RickH type,
 		3.length: 0, means default instance length,
 		4.toArray: transfer instance to array,
 		5.get: get the indexed original dom element
-		6.each: go through jquery instance
+		6.each: go through RickH instance
 		7.map: go through instance, and transfer to callback , and collect the return value and get array.
-		8.slice:slice parts of instance and get the new jquery instance.
-		9. first: get the first jquery instance element
-		10.last:get the last element of jquery instance
-		11.eq: get the indexed jquery instance object
-		12.push: add new element on jquery instance
-		13. sort: sort the jquery instance
-		14.splice: add, remove or replace the jquery instance 
+		8.slice:slice parts of instance and get the new RickH instance.
+		9. first: get the first RickH instance element
+		10.last:get the last element of RickH instance
+		11.eq: get the indexed RickH instance object
+		12.push: add new element on RickH instance
+		13. sort: sort the RickH instance
+		14.splice: add, remove or replace the RickH instance 
 
 		************************************
 			
 		*/
-		// 1.jquery: version, means version number
-		jquery: version,
-		// 2.selector: '', means stance is jquery type,
+		// 1.RickH: version, means version number
+		rickh: version,
+		// 2.selector: '', means stance is RickH type,
 		selector: '',
 
 		// 3.length: 0, means default instance length,
@@ -86,66 +86,66 @@
 				this[this.length + index];
 		},
 
-		// 6.each: go through jquery instance
+		// 6.each: go through RickH instance
 		each: function(callback) {
-			return jQuery.each(this, callback);
+			return RickH.each(this, callback);
 		},
 
 		// 7.map: go through instance, and transfer to callback , and collect the return value and get array.
 		map: function(callback) {
 
-			return jQuery.map(this, callback);
+			return RickH.map(this, callback);
 		},
 
-		// 8.slice:slice parts of instance and get the new jquery instance.
+		// 8.slice:slice parts of instance and get the new RickH instance.
 		slice: function() {
-			// through array slice method to get new array, and then transfer to jquery instance
+			// through array slice method to get new array, and then transfer to RickH instance
 
 			// because slice arguments are changable, so use 'arguments', we need to transfer each item of 'arguments' to 'nodes'
 			var nodes = [].slice.apply(this, arguments);
 
-			// get the jquery instance
-			return jQuery(nodes);
+			// get the RickH instance
+			return RickH(nodes);
 		},
 
-		// 9.eq: get the indexed jquery instance object
+		// 9.eq: get the indexed RickH instance object
 		eq: function(index) {
 			// if null or undefined return new instance, if > 0 return new indexed instance, if < 0, return new indexed instance from end.
 			if (index == null) {
-				return jquery();
+				return RickH();
 			}
 
 			if (index >= 0) {
-				return jQuery(this[index]);
+				return RickH(this[index]);
 			} else {
-				return jQuery(this[this.length + index]);
+				return RickH(this[this.length + index]);
 			}
 
 		},
 
 		_eq: function(index) {
 			return index == null ?
-				jQuery() :
-				jQuery(this.get(index));
+				RickH() :
+				RickH(this.get(index));
 		},
 
-		// 10.first: get the first jquery instance element
+		// 10.first: get the first RickH instance element
 		first: function() {
 			return this.eq(0);
 		},
 
-		// 11.last:get the last element of jquery instance
+		// 11.last:get the last element of RickH instance
 		last: function() {
 			return this.eq(-1);
 		},
 
-		// 12.push: add new element on jquery instance
+		// 12.push: add new element on RickH instance
 		push: [].push,
 
-		// 13. sort: sort the jquery instance
+		// 13. sort: sort the RickH instance
 		sort: [].sort,
 
-		// 14.splice: add, remove or replace the jquery instance 
+		// 14.splice: add, remove or replace the RickH instance 
 		splice: [].splice
 	};
 
@@ -156,14 +156,14 @@
 		*********************************
 	*/
 	// by mix-in inheritance
-	/*jQuery.extend = jQuery.prototype.extend = function(obj) {
+	/*RickH.extend = RickH.prototype.extend = function(obj) {
 		for (var key in obj) {
 			this[key] = obj[key];
 		}
 	}*/
 
 	// improve 'extend' method
-	jQuery.extend = jQuery.fn.extend = function() {
+	RickH.extend = RickH.fn.extend = function() {
 
 		/*
 			1. if has one argument, directly mix in
@@ -197,17 +197,17 @@
 
 	/*
 	*************************************
-		add static methods on jQuery
+		add static methods on RickH
 	**************************************
 	*/
-	jQuery.extend({
+	RickH.extend({
 
 
 
 		/*
 
 		*********************************************
-		 ADD static methods on jQuery !!!!!
+		 ADD static methods on RickH !!!!!
 		***********************************************
 		*/
 
@@ -310,7 +310,7 @@
 		isLikeArray: function(arr) {
 
 			// Function, Window, !Object
-			if (jQuery._isFunction(arr) || jQuery._isWindow(arr) || !jQuery.isObject(arr)) {
+			if (RickH._isFunction(arr) || RickH._isWindow(arr) || !RickH.isObject(arr)) {
 				return false;
 			}
 
@@ -374,7 +374,7 @@
 			*/
 			var i, len, key;
 
-			if (jQuery.isLikeArray(obj)) {
+			if (RickH.isLikeArray(obj)) {
 				for (i = 0, len = obj.length; i < len; i++) {
 					if (callback.call(obj[i], i, obj[i]) === false) {
 						break;
@@ -415,7 +415,7 @@
 		the true constructor
 		**************************************
 	*/
-	var init = jQuery.fn.init = function(selector) {
+	var init = RickH.fn.init = function(selector) {
 
 		// null undefined, '', 0, NaN
 		if (!selector) {
@@ -423,19 +423,19 @@
 		}
 
 		// selector is function ---- page onload function
-		if (jQuery._isFunction(selector)) {
-			jQuery.ready(selector);
+		if (RickH._isFunction(selector)) {
+			RickH.ready(selector);
 		}
 
 
 		// string
-		if (jQuery._isString(selector)) {
+		if (RickH._isString(selector)) {
 
 			// trim the string firstly
-			selector = jQuery.trim(selector);
+			selector = RickH.trim(selector);
 
 			// html or selector
-			if (jQuery._isHtml(selector)) {
+			if (RickH._isHtml(selector)) {
 
 				// create tempt div to contain the pseudo array
 				var tempDiv = document.createElement('div');
@@ -461,7 +461,7 @@
 		}
 		// pseudo array or array
 		// array or isLikeArray
-		else if (jQuery.isLikeArray(selector)) {
+		else if (RickH.isLikeArray(selector)) {
 			// through 'slice' method, change pseudo array to true array. for IE8
 			[].push.apply(this, [].slice.call(selector));
 			return this;
@@ -484,11 +484,11 @@
 
 	/*
 		******************************
-		replace init prototype to factory prototype, so that others can create instance by jQuery.
+		replace init prototype to factory prototype, so that others can create instance by RickH.
 		*************************************************
 
 	*/
-	init.prototype = jQuery.fn;
+	init.prototype = RickH.fn;
 
 
 	/*
@@ -496,6 +496,6 @@
 	expose the factory to outside
 	**********************************8
 	*/
-	w.jQuery = w.$ = jQuery;
+	w.RickH = w.RH = RickH;
 
-}(window))
+}(window));

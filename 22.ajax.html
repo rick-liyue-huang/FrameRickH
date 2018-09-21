@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		var xhr = new XMLHttpRequest();
+
+		xhr.open('get', './test-ajax.json');
+
+		xhr.onreadystatechange = function() {
+			// if ==4, request completed
+			if(xhr.readyState === 4) {
+				
+				// 304 means cache
+				if( (xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+					
+					// print response data 'string'
+					console.log(xhr.responseText);
+
+				} else {
+					console.log('request fail');
+				}
+			}
+		};
+
+
+		xhr.send();
+
+ 		 
+
+		
+
+
+	</script>
+</body>
+</html>

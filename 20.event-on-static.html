@@ -246,8 +246,25 @@
 				return this;
 			}
 
+			/*click: function(callback) {
+				return this._on('click', callback);
+			},
+
+			mouseout: function(callback) {
+				return this._on('mouseout', callback);
+			}
+*/
 
 
+		});
+		
+		// batch add event
+		var events = 'click mouseout mousedown scroll blur'.split(' ');
+
+		jQuery.each(events, function(k, eventName) {
+			$.fn[eventName] = function(callback) {
+				return this.on(eventName, callback);
+			}
 		});
 		
 		/*
