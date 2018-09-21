@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript" src="11.9-to-core.js"></script>
+	<script type="text/javascript" src="15.14-to-dom.js"></script>
+	<script type="text/javascript" src="18.17-to-style.js"></script>
+	<script type="text/javascript">
+		
+		// add event on frame static method
+		$.extend({
+
+			/*
+				on: bind event
+				DOM.on+eventname = function(){} 
+				DOM.addEventListener(eventname, function() {})
+				DOM.attachEvent('on'+eventname, function() {})
+			*/
+			addEvent: function(elem, type, callback) {
+
+				if( !elem.nodeType || !jQuery._isString(type) || !jQuery._isFunction(callback) ) {
+					return;
+				}
+
+				if( elem.addEventListener) {
+					elem.addEventListener(type, callback);
+
+				} else {
+					elem.attachEvent('on'+type, callback);
+				}
+			},
+
+			/*
+				off method
+				1. DOM.on+eventname = null
+				2. DOM.removeEventListener(eventname, function() {})
+				3. DOM.dettachEvent(on+eventname, function() {})
+
+			*/
+
+			removeEvent: function(elem, type, callback) {
+
+				if( !elem.nodeType || !jQuery._isString(type) || !jQuery._isFunction(callback) ) {
+					return;
+				}
+
+				if( elem.removeEventListener) {
+					elem.removeEventListener(type, callback);
+
+				} else {
+					elem.detachEvent('on'+type, callback);
+				}
+			},
+
+			/*
+				
+
+			*/
+
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+</body>
+</html>

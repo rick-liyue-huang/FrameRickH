@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<span>123</span>
+	<script type="text/javascript">
+		
+		/*
+			event:
+			1. on: bind event
+			DOM.on+eventname = function(){} 
+			DOM.addEventListener(eventname, function() {})
+			DOM.attachEvent('on'+eventname, function() {})
+
+			2. off: untie event.
+
+
+		*/
+/*
+		
+		span.addEventListener('click', function() {
+			alert('span');
+		});*/
+		
+		// compatible 
+		function addEvent(elem, type, callback) {
+			if(elem.addEventListener) {
+				elem.addEventListener(type, callback);
+
+			} else {
+				elem.attachEvent('on'+type, callback)
+			}
+
+		}
+
+
+		/*
+			off method
+			1. DOM.on+eventname = null
+			2. DOM.removeEventListener(eventname, function() {})
+			3. DOM.dettachEvent(on+eventname, function() {})
+
+		*/
+		
+		// here must note: callback has to be stored firstly in add, and remove the same one.
+		function removeEvent(elem, type, callback) {
+
+			if(elem.removeEventListener) {
+				elem.removeEventListener(type, callback);
+
+			} else {
+				elem.detachEvent('on'+type, callback);
+			}
+		}
+
+/*
+		var span = document.querySelectorAll('span')[0];
+		var clickHandle = function() {
+			console.log('span');};
+		addEvent(span, 'click', clickHandle
+		);
+
+		removeEvent(span, 'click', clickHandle);*/
+
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</script>
+</body>
+</html>
