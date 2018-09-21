@@ -148,6 +148,18 @@ RickH.extend({
 			data: data,
 			success: callback
 		});
+	},
+
+	getCss: function(url, data, callback) {
+
+		callback = callback || data || function() {};
+		RickH.ajax({
+			dataType: 'style',
+			url: url,
+			data: data,
+			success: callback
+		});
+
 	}
 
 });

@@ -1,5 +1,10 @@
 
-## Introduction
+## Frame RickH
+
+One framework named RickH, which simulates the 'jQuery' Framework.
+
+
+#### Introduction
 
 This is one framework simulating jQuery, and also realize the basic function like jQuery.
 
@@ -17,6 +22,8 @@ This is one framework simulating jQuery, and also realize the basic function lik
 5.event application (on and off);
 6.ajax application;
 7.plug-ins application.
+
+
 
 
 
